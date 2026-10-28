@@ -12,7 +12,7 @@
 [![Output: EN · ES](https://img.shields.io/badge/output-EN%20%C2%B7%20ES-8261cf)](#use)
 [![License: MIT](https://img.shields.io/badge/license-MIT-007242)](LICENSE)
 
-[In short](#in-short) · [How it works](#how-it-works) · [Install](#install) · [Use](#use) · [User journey](#user-journey) · [Example](examples/rca-example-memory-net/)
+[In short](#in-short) · [How it works](#how-it-works) · [Install](#install) · [Use](#use) · [What you get](#what-you-get) · [User journey](#user-journey) · [Example](examples/rca-example-memory-net/)
 
 </div>
 
@@ -30,7 +30,7 @@
 - ✅ **A root cause with its certainty** (confirmed, probable or not determined), plus an action plan with owners, dates and closing criteria.
 - 🌐 **In English or Spanish.** The notebook comes out in the language you ask in, or in the one you name.
 
-### How it works
+### The approach
 
 The skill doesn't tell the agent which queries to run. Instead, it sets the standard around the investigation:
 
@@ -174,22 +174,67 @@ Give it at least one starting point: a **problem ID**, an **event ID**, or a **t
 > [!TIP]
 > Times appear in UTC and in **your machine's local time zone**, wherever you are in the world, with daylight saving applied. To investigate a tenant other than your default one, give the agent the dtctl context name.
 
-### What you get
+---
 
-A notebook named `RCA | <Problem ID> | <Service> | <date>`, with 10 fixed sections written for two audiences:
+## What you get
 
-| # | Section | For |
-|---|---|---|
-| 0 | Cover and incident card | Everyone |
-| 1 | Executive summary | **Anyone**: no jargon, at most 10 lines, checked automatically |
-| 2 | Scope and impact | Technical |
-| 3 | Timeline + diagram D2 | Figure: everyone · table: technical |
-| 4 | How the failure spread + diagram D1 | Figure: everyone · sequence: technical |
-| 5 | Root cause, 5 whys + diagram D3, hypotheses, and a check of Davis's suggested root cause | Figure: everyone · analysis: technical |
-| 6 | Observability gaps found | Technical |
-| 7 | Action plan with owner, date and closing criteria | Technical and owners |
-| 8 | Lessons learned | Everyone |
-| 9 | Appendices: time windows, evidence, glossary, official references, versions | Technical |
+### In Dynatrace: the RCA notebook
+
+Every notebook has the same structure. Section 1 and the three diagrams are written for anyone; sections 2 to 9 are for technical teams.
+
+```text
+RCA | <Problem ID> | <Service> | <YYYY-MM-DD>
+│
+├── 0  Cover and incident card             severity · impact window · MTTD/MTTR · certainty
+├── 1  Executive summary                   plain language, anyone can read it, 10 lines max
+├── 2  Scope and impact
+│   ├── 2.1 Affected components            component · role · observed impact
+│   ├── 2.2 Impact on users and business   failed requests · users · transactions · SLO
+│   └── ▸ Evidence 2.x                     DQL sections you can re-run in the notebook
+├── 3  Timeline of events                  D2 diagram · events in UTC + local time · MTTD/MTTR
+│   └── ▸ Evidence 3.x
+├── 4  Failure propagation diagram         D1 diagram · propagation sequence · blind spots
+├── 5  Root cause analysis
+│   ├── 5.1 Root cause                     statement · certainty · trigger and factors
+│   ├── 5.2 5 whys analysis                D3 diagram · question → answer → evidence
+│   ├── 5.3 Hypotheses evaluated           confirmed · ruled out · inconclusive
+│   ├── 5.4 Davis validation               does Davis's root cause match the analysis?
+│   └── ▸ Evidence 5.x
+├── 6  Observability gaps found            gap · effect · recommendation · priority
+├── 7  Action plan                         action · owner · due date · closing criteria
+├── 8  Lessons learned                     what went well · what to improve · where we got lucky
+└── 9  Appendices
+    ├── 9.1 Anchor, time windows and evidence
+    ├── 9.2 Glossary
+    ├── 9.3 Official references            the [Rn] sources cited in the text
+    └── 9.4 Version history
+```
+
+- **Evidence N.x** blocks are DQL sections with a fixed time window: open one in the notebook and it runs again.
+- **[Rn]** marks point to official documentation listed in 9.3.
+- Section 5.1 always states the root cause certainty: ✅ confirmed · ⚠️ probable · ❌ not determined.
+
+👉 A complete one: [example notebook](examples/rca-example-memory-net/NOTEBOOK.md)
+
+### In the chat: the agent's final answer
+
+- The notebook's name, ID and link.
+- The root cause in 3 lines, with its certainty.
+- The paths to the editable `.drawio` diagrams.
+
+### On your machine: the working folder
+
+```text
+rca/                      or rca-<Problem ID>/
+├── rca_spec.json         language and order of the sections
+├── sections/             00-cover.md … 09-appendices.md
+├── queries/              E<N.x>-*.dql: the exact queries run with dtctl
+├── evidence/             E<N.x>.json results + INDEX.md
+├── diagrams/             D1, D2 and D3 as .drawio (editable) and .png
+└── notebook.json         the assembled notebook; rebuild it any time with build_notebook.py
+```
+
+The folder holds data from your tenant, so keep it private.
 
 ---
 
