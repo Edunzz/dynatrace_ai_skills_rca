@@ -1,0 +1,4 @@
+fetch spans, from: "2026-01-16T03:45:00Z", to: "2026-01-16T04:45:00Z"
+| filter dt.smartscape.service == toSmartscapeId("SERVICE-0123456789ABCDEF") and request.is_root_span == true and request.is_failed == true
+| fields start_time, k8s.pod.name, endpoint.name, http.response.status_code, duration, dt.failure_detection.results, trace.id
+| sort start_time asc

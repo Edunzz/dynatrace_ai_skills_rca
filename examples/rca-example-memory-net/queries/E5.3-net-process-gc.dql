@@ -1,0 +1,5 @@
+timeseries gc_time_pct = avg(dt.runtime.clr.gc.time_percentage),
+   by: {dt.smartscape.process, k8s.pod.name},
+   from: "2026-01-16T03:45:00Z", to: "2026-01-16T04:45:00Z", interval: 1m
+| filter in(dt.smartscape.process, {toSmartscapeId("PROCESS-0123456789ABC00A"), toSmartscapeId("PROCESS-0123456789ABC00B")})
+| fieldsAdd gc_max_pct = arrayMax(gc_time_pct)

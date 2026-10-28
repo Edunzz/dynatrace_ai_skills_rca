@@ -1,0 +1,6 @@
+timeseries {
+  requests = sum(dt.service.request.count),
+  failures = sum(dt.service.request.failure_count)
+}, filter: dt.smartscape.service == toSmartscapeId("SERVICE-0123456789ABCDEF"),
+   from: "2026-01-16T03:45:00Z", to: "2026-01-16T04:45:00Z", interval: 1m
+| fieldsAdd failure_rate_pct = failures[] * 100.0 / requests[]

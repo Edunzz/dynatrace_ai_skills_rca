@@ -1,0 +1,5 @@
+fetch dt.davis.problems, from: "2026-01-09T04:45:00Z", to: "2026-01-16T04:45:00Z"
+| filter not(dt.davis.is_duplicate)
+| filter in(root_cause_entity_id, {"SERVICE-0123456789ABCDEF", "PROCESS_GROUP-0123456789ABCDEF"})
+| summarize {problems = count(), first_seen = min(event.start), last_seen = max(event.start)}, by: {event.name, root_cause_entity_name}
+| sort problems desc

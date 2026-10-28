@@ -1,0 +1,4 @@
+fetch dt.davis.problems, from: "2026-01-16T03:45:00Z", to: "2026-01-16T04:45:00Z"
+| filter in(display_id, {"P-2601001", "P-2601002"}) and not(dt.davis.is_duplicate)
+| fields display_id, event.start, event.end, event.name, event.category, root_cause_entity_name, smartscape.affected_entity.ids
+| sort event.start asc

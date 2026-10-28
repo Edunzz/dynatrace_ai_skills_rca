@@ -1,0 +1,6 @@
+fetch spans, from: "2026-01-16T03:45:00Z", to: "2026-01-16T04:45:00Z"
+| filter dt.smartscape.service == toSmartscapeId("SERVICE-0123456789ABCDEF") and request.is_root_span == true
+| fieldsAdd m = coalesce(1 / ((power(2, 56) - coalesce(sampling.threshold, 0)) * power(2, -56)), 1) * coalesce(aggregation.count, 1)
+| summarize {requests = sum(m), failed = sum(if(request.is_failed == true, m, else: 0))}, by: {k8s.pod.name}
+| fieldsAdd failure_rate_pct = failed * 100.0 / requests
+| sort failed desc

@@ -8,10 +8,11 @@
 [![Dynatrace SaaS](https://img.shields.io/badge/Dynatrace-SaaS-7d6afa)](https://www.dynatrace.com)
 [![dtctl](https://img.shields.io/badge/CLI-dtctl-0b56e5)](https://github.com/dynatrace-oss/dtctl)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-31323a)](https://www.python.org)
-[![Version 2.1.0](https://img.shields.io/badge/version-2.1.0-5c5d66)](skills/dt-custom-rca-jromero/SKILL.md)
+[![Version 2.2.0](https://img.shields.io/badge/version-2.2.0-5c5d66)](skills/dt-custom-rca-jromero/SKILL.md)
+[![Output: EN · ES](https://img.shields.io/badge/output-EN%20%C2%B7%20ES-8261cf)](#use)
 [![License: MIT](https://img.shields.io/badge/license-MIT-007242)](LICENSE)
 
-[In short](#in-short) · [How it works](#how-it-works) · [Install](#install) · [Use](#use) · [User journey](#user-journey) · [Example](examples/rca-ejemplo-memoria-net/)
+[In short](#in-short) · [How it works](#how-it-works) · [Install](#install) · [Use](#use) · [User journey](#user-journey) · [Example](examples/rca-example-memory-net/)
 
 </div>
 
@@ -27,6 +28,7 @@
 - 🔎 **Evidence for every claim.** Each fact links to a saved query you can re-run in the notebook. Each interpretation cites official documentation.
 - 🗺️ **Three diagrams in Dynatrace style:** how the failure spread, the timeline and the 5 whys. Red always means failure.
 - ✅ **A root cause with its certainty** (confirmed, probable or not determined), plus an action plan with owners, dates and closing criteria.
+- 🌐 **In English or Spanish.** The notebook comes out in the language you ask in, or in the one you name.
 
 ### How it works
 
@@ -40,7 +42,7 @@ The skill doesn't tell the agent which queries to run. Instead, it sets the stan
 It works with any agent that reads skills and can run shell commands, such as Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Kiro, Junie and OpenCode.
 
 > [!NOTE]
-> The skill's instructions and the notebooks it produces are in **Spanish**. You can ask in English, but the delivered RCA follows the Spanish template.
+> **Language.** Ask in English and you get the notebook in English; ask in Spanish and you get it in Spanish. To pick one explicitly, add "in English" or "en español" to your request. The skill's internal instructions are written in Spanish, but that doesn't affect the output.
 
 ---
 
@@ -65,6 +67,7 @@ It works with any agent that reads skills and can run shell commands, such as Cl
 |---|---|
 | a prerequisite is missing | stops before touching any data and shows the exact command to fix it |
 | a dtctl context is active | asks you to confirm it points to the tenant of the incident |
+| you ask in English or Spanish | writes the whole notebook in that language, diagrams included, unless you name another one |
 | a statement is a **fact** | requires a saved query that can be re-run (`Evidence N.x`) |
 | a statement **interprets** behavior | also requires official documentation (`[Rn]`) |
 | proof is incomplete | labels it `⚠️ unconfirmed hypothesis` and says what is missing |
@@ -140,7 +143,7 @@ python skills/dt-custom-rca-jromero/scripts/check_prereqs.py --json   # for agen
 
 ```text
 [OK]    R1  dtctl                       0.37.0 (...\dtctl.exe)
-[OK]    R2  Contexto dtctl              mi-tenant -> https://abc12345.apps.dynatrace.com - CONFIRMAR con el usuario...
+[OK]    R2  Contexto dtctl              my-tenant -> https://abc12345.apps.dynatrace.com - CONFIRMAR con el usuario...
 [OK]    R3  Permisos (scopes)           9/9 obligatorios · 4/4 recomendados
 [OK]    R4  Skills Dynatrace for AI     dt-dql-essentials, dt-obs-problems, dt-app-notebooks · dominio: 13/13
 [OK]    R5  Skill drawio                drawio
@@ -156,13 +159,14 @@ The checker reports in Spanish: `LISTO` means *ready*, `FALTA` means *missing* a
 
 ## Use
 
-Ask your agent in natural language, in English or Spanish:
+Ask your agent in natural language. The notebook comes out in the language you use:
 
 ```text
-Do the RCA for problem P-1234567
+Do the RCA for problem P-1234567                        → notebook in English
 Investigate what happened to checkout-service yesterday between 9:00 and 10:00 and build the RCA notebook
+Haz el RCA del problema P-1234567                       → notebook in Spanish
+Do the RCA for problem P-1234567 in Spanish             → you choose the language
 Check the RCA prerequisites
-Haz el RCA del problema P-1234567
 ```
 
 Give it at least one starting point: a **problem ID**, an **event ID**, or a **time range plus the affected service**. That is where the investigation starts, not its limit. The agent can widen the time window or bring in other entities whenever the evidence points there.
@@ -195,7 +199,7 @@ A notebook named `RCA | <Problem ID> | <Service> | <date>`, with 10 fixed sectio
   <img src="docs/images/user-journey.png" alt="A typical RCA session in six stages" width="880">
 </div>
 
-Here is a real session, end to end. The data comes from the [anonymized example](examples/rca-ejemplo-memoria-net/).
+Here is a real session, end to end. The data comes from the [anonymized example](examples/rca-example-memory-net/).
 
 ### 1 · Install once
 
@@ -209,11 +213,11 @@ The agent loads the skill and runs `check_prereqs.py` before touching any data. 
 
 ### 3 · Confirm
 
-> 🤖 **Agent:** Prerequisites are ready. The active dtctl context `mi-tenant` points to `https://abc12345.apps.dynatrace.com`. Is this the tenant of the incident?
+> 🤖 **Agent:** Prerequisites are ready. The active dtctl context `my-tenant` points to `https://abc12345.apps.dynatrace.com`. Is this the tenant of the incident?
 >
 > 👤 **You:** Yes, go ahead.
 
-The agent sets the starting point (the problem's time window) and your machine's time zone.
+The agent sets the starting point (the problem's time window) and your machine's time zone. You asked in English, so the notebook will be in English.
 
 ### 4 · Investigate
 
@@ -231,7 +235,7 @@ The agent writes the 10 sections, draws the three diagrams, and then validates t
 
 ```text
 $ python build_notebook.py rca_spec.json -o notebook.json --strict
-OK: notebook.json | secciones: 22 | evidencias: 12 | imágenes: 3 (782 KB)
+OK: notebook.json | sections: 22 | evidence: 12 | images: 3 (753 KB)
 
 $ dtctl apply -f notebook.json --dry-run      # runs every query, publishes nothing
 ```
@@ -244,15 +248,15 @@ The agent publishes the notebook and hands you the result. In the example, the r
 
 > 🤖 **Agent:** Root cause (⚠️ **Probable**): the service's memory grows steadily in every replica. One replica reached 91% of its memory limit, garbage collection took over and requests failed until Kubernetes restarted the container.
 
-Along with it you get the notebook link and the editable `.drawio` diagrams. These are the three diagrams from that notebook (in Spanish):
+Along with it you get the notebook link and the editable `.drawio` diagrams. These are the three diagrams from that notebook:
 
 | D1 · How the failure spread | D2 · Timeline | D3 · 5 whys |
 |---|---|---|
-| [![D1](examples/rca-ejemplo-memoria-net/diagrams/D1-propagacion.png)](examples/rca-ejemplo-memoria-net/diagrams/D1-propagacion.png) | [![D2](examples/rca-ejemplo-memoria-net/diagrams/D2-linea-tiempo.png)](examples/rca-ejemplo-memoria-net/diagrams/D2-linea-tiempo.png) | [![D3](examples/rca-ejemplo-memoria-net/diagrams/D3-causa-raiz.png)](examples/rca-ejemplo-memoria-net/diagrams/D3-causa-raiz.png) |
+| [![D1](examples/rca-example-memory-net/diagrams/D1-propagation.png)](examples/rca-example-memory-net/diagrams/D1-propagation.png) | [![D2](examples/rca-example-memory-net/diagrams/D2-timeline.png)](examples/rca-example-memory-net/diagrams/D2-timeline.png) | [![D3](examples/rca-example-memory-net/diagrams/D3-root-cause.png)](examples/rca-example-memory-net/diagrams/D3-root-cause.png) |
 
 The diagrams use Dynatrace's Strato color tokens: 🟥 failure or error · 🟧 degraded · 🟩 healthy · 🟦 change · ⬜ dashed, no visibility.
 
-👉 Read the whole notebook: [`examples/rca-ejemplo-memoria-net/NOTEBOOK.md`](examples/rca-ejemplo-memoria-net/NOTEBOOK.md)
+👉 Read the whole notebook: [`examples/rca-example-memory-net/NOTEBOOK.md`](examples/rca-example-memory-net/NOTEBOOK.md) · Same case in Spanish: [`rca-ejemplo-memoria-net`](examples/rca-ejemplo-memoria-net/NOTEBOOK.md)
 
 ---
 
@@ -268,7 +272,8 @@ dynatrace_ai_skills_rca/
 │       ├── references/             notebook template, diagram standard, dtctl, evidence, investigation
 │       └── assets/                 example spec and draw.io style kit
 ├── examples/
-│   └── rca-ejemplo-memoria-net/    anonymized real RCA: sections, queries, diagrams, preview
+│   ├── rca-example-memory-net/     anonymized real RCA in English: sections, queries, diagrams, preview
+│   └── rca-ejemplo-memoria-net/    the same RCA in Spanish
 ├── docs/
 │   ├── instalacion.md              install guide per agent and OS (Spanish)
 │   ├── como-funciona.md            how it works in detail (Spanish)
@@ -290,14 +295,16 @@ dynatrace_ai_skills_rca/
 <details>
 <summary><b>Contributing</b></summary>
 
-Issues and pull requests are welcome. Before sending a change, make sure the example still builds with no errors or warnings:
+Issues and pull requests are welcome. Before sending a change, make sure both examples still build with no errors or warnings:
 
 ```bash
-cd examples/rca-ejemplo-memoria-net
-python ../../skills/dt-custom-rca-jromero/scripts/build_notebook.py rca_spec.json -o /tmp/notebook.json --strict
+cd examples/rca-example-memory-net
+python ../../skills/dt-custom-rca-jromero/scripts/build_notebook.py rca_spec.json -o /tmp/notebook-en.json --strict
+cd ../rca-ejemplo-memoria-net
+python ../../skills/dt-custom-rca-jromero/scripts/build_notebook.py rca_spec.json -o /tmp/notebook-es.json --strict
 ```
 
-Any new example data must be anonymized. The diagrams in `docs/images/` are draw.io files: open the `.drawio` file, or the `.png` itself, since the PNG has the editable diagram embedded.
+Any new example data must be anonymized, and a change to one example should be mirrored in the other. The diagrams in `docs/images/` are draw.io files: open the `.drawio` file, or the `.png` itself, since the PNG has the editable diagram embedded.
 
 </details>
 

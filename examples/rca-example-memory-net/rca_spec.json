@@ -1,0 +1,110 @@
+{
+  "name": "RCA | P-2601001 | auth-api (example) | 2026-01-15",
+  "language": "en",
+  "defaultTimeframe": {
+    "from": "2026-01-16T03:45:00Z",
+    "to": "2026-01-16T04:45:00Z"
+  },
+  "sections": [
+    {
+      "type": "markdown",
+      "file": "sections/00-cover.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/01-summary.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/02-scope.md"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 2.1] Requests, failures and failure rate per minute for the service",
+      "query_file": "queries/E2.1-service-errors.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 2.2] Requests and failures by pod",
+      "query_file": "queries/E2.2-impact-by-pod.dql"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/03-timeline.md"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 3.1] Davis events for both problems",
+      "query_file": "queries/E3.1-davis-events.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 3.2] Davis problems P-2601001 and P-2601002",
+      "query_file": "queries/E3.2-davis-problems.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 3.3] Events recorded in the tenant by kind (24 h)",
+      "query_file": "queries/E3.3-change-events-24h.dql"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/04-propagation.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/05-root-cause.md"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 5.1] Requests and failures by pod and minute",
+      "query_file": "queries/E5.1-failures-by-pod-minute.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 5.2] Details of the failed requests",
+      "query_file": "queries/E5.2-failure-details.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 5.3] Time in garbage collection (.NET) by process",
+      "query_file": "queries/E5.3-net-process-gc.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 5.4] Container memory versus the limit by pod",
+      "query_file": "queries/E5.4-container-memory.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 5.5] Container restarts by pod (48 h)",
+      "query_file": "queries/E5.5-container-restarts.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 5.6] Recurrence of the service's problems (7 days)",
+      "query_file": "queries/E5.6-recurrence-7d.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidence 5.7] Container memory trend by pod (48 h)",
+      "query_file": "queries/E5.7-memory-trend-48h.dql"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/06-gaps.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/07-action-plan.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/08-lessons.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/09-appendices.md"
+    }
+  ]
+}

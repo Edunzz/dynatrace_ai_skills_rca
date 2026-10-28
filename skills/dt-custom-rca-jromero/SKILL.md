@@ -1,12 +1,12 @@
 ---
 name: dt-custom-rca-jromero
-description: Lineamientos y estándar de entrega para que un agente realice un RCA (Root Cause Analysis) en Dynatrace con dtctl y las skills oficiales Dynatrace for AI, y entregue el resultado como Notebook de Dynatrace con estructura estandarizada, un resumen ejecutivo que entiende cualquier persona y diagramas draw.io con estilo Dynatrace incrustados. Incluye un validador de prerrequisitos (dtctl y su contexto, permisos, skills dt-*, skill drawio y draw.io Desktop) que se ejecuta antes de empezar. Usar cuando el usuario pida "RCA", "análisis de causa raíz", "post-mortem", "informe de incidente", "investiga el problema P-XXXX", "genera el notebook de RCA" o "valida los prerrequisitos del RCA". No reemplaza a las skills de Dynatrace ni restringe la investigación.
+description: Lineamientos y estándar de entrega para que un agente realice un RCA (Root Cause Analysis) en Dynatrace con dtctl y las skills oficiales Dynatrace for AI, y entregue el resultado como Notebook de Dynatrace en español o inglés (por defecto, el idioma del pedido) con estructura estandarizada, un resumen ejecutivo que entiende cualquier persona y diagramas draw.io con estilo Dynatrace incrustados. Incluye un validador de prerrequisitos (dtctl y su contexto, permisos, skills dt-*, skill drawio y draw.io Desktop) que se ejecuta antes de empezar. Usar cuando el usuario pida "RCA", "análisis de causa raíz", "root cause analysis", "post-mortem", "informe de incidente", "incident report", "investiga el problema P-XXXX", "investigate problem P-XXXX", "genera el notebook de RCA" o "valida los prerrequisitos del RCA". No reemplaza a las skills de Dynatrace ni restringe la investigación.
 license: MIT
 compatibility: Cualquier agente compatible con agentskills.io que ejecute comandos de shell (Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Kiro, Junie, OpenCode, etc.). Requiere dtctl con contexto autenticado a Dynatrace SaaS, Python 3.9+, skills Dynatrace for AI, una skill de draw.io y draw.io Desktop.
 metadata:
   author: Edunzz (Jose Eduardo Romero Jimenez)
-  version: "2.1.0"
-  language: es
+  version: "2.2.0"
+  language: es, en
   repository: https://github.com/Edunzz/dynatrace_ai_skills_rca
 ---
 
@@ -32,7 +32,7 @@ metadata:
 
 ```
 1. Prerrequisitos ─► python <skill>/scripts/check_prereqs.py → si algo FALTA: detenerse
-2. Ancla ──────────► Problem ID / evento / rango + entidad (hora local = zona de la máquina)
+2. Ancla ──────────► Problem ID / evento / rango + entidad (hora local = zona de la máquina; idioma = el del pedido)
 3. Investigación ──► libre, solo lectura; skills dt-obs-* según el mapa
 4. Sustento ───────► hecho = Evidencia N.x (.dql reproducible); interpretación = + [Rn] oficial
 5. Redacción ──────► secciones 0–9; resumen y figuras entendibles por cualquier persona
@@ -98,6 +98,13 @@ Para no escanear el tenant a ciegas, el agente necesita **al menos uno**: Proble
 
 **Hora local** = zona horaria de la máquina donde se ejecuta el agente (la reporta `check_prereqs.py`). Así el RCA sirve en cualquier país sin preguntar. Las horas se convierten con `python <skill>/scripts/hora_local.py <utc> ...`, que aplica el desfase vigente en cada fecha.
 
+**Idioma del RCA:** español (`es`) o inglés (`en`). No se pregunta:
+- Si el usuario lo indica ("en inglés", "in English", "en español"), se usa ese idioma.
+- Si no lo indica, se usa el idioma en que hizo el pedido. Si no se puede determinar, español.
+- **Todo el notebook va en ese idioma:** títulos, tablas, resumen, títulos de evidencia (`[Evidencia N.x]` o `[Evidence N.x]`), pies de figura, glosario y textos de los diagramas. Los nombres técnicos (servicios, métricas, campos, DQL) no se traducen.
+- Se declara en el spec con `"language": "es"` o `"language": "en"`; `build_notebook.py` valida los títulos de ese idioma y responde en él. Los títulos y etiquetas en inglés están en `references/formato-notebook.md` (sección "Equivalencias en inglés").
+- La respuesta final al usuario también va en ese idioma.
+
 Ese dato es el **ancla de inicio**, no el perímetro: el agente puede ampliar ventanas, incorporar otras entidades, revisar recurrencia histórica o cualquier otra línea que la evidencia sugiera. Solo debe **registrar en el Anexo 9.1 qué ventanas/alcances usó y por qué**, para que el RCA sea reproducible.
 
 ---
@@ -147,7 +154,7 @@ Las secciones y su orden son fijos; **el contenido dentro de cada sección no ti
 | 8 | Lecciones aprendidas | — | Todos |
 | 9 | Anexos (anclaje y ventanas, evidencia, glosario, referencias oficiales, versiones) | — | Técnico |
 
-Plantilla exacta (títulos, tablas, columnas, indicadores, horas UTC + hora local): `references/formato-notebook.md`.
+Plantilla exacta (títulos, tablas, columnas, indicadores, horas UTC + hora local): `references/formato-notebook.md`. Allí están también los títulos y etiquetas en inglés para cuando el RCA va en ese idioma.
 
 ### 5.2 Resumen ejecutivo y figuras: para cualquier persona
 El documento es técnico, pero **empieza por un resumen que entiende cualquiera**: gerencia, negocio, el cliente. Regla de oro: si alguien que no conoce Dynatrace ni la arquitectura leyera solo la Sección 1, debe entender qué pasó, a quién afectó, por qué, cómo se resolvió y qué se hará.
@@ -159,7 +166,8 @@ El documento es técnico, pero **empieza por un resumen que entiende cualquiera*
 
 ### 5.3 Imágenes con estilo Dynatrace
 - Todas con la skill **drawio** (D1, D2, D3 mínimo; se pueden agregar más). Si no está instalada → gate R5.
-- **Estilo Dynatrace con color semántico**: paleta de los design tokens Strato. La marca (banda azul → violeta) va en el marco; dentro del diagrama, **rojo = error o falla** (la causa raíz además con borde grueso y la etiqueta CAUSA RAÍZ), naranja = degradado, verde = sano, azul = cambio, gris punteado = sin visibilidad.
+- **Estilo Dynatrace con color semántico**: paleta de los design tokens Strato. La marca (banda azul → violeta) va en el marco; dentro del diagrama, **rojo = error o falla** (la causa raíz además con borde grueso y la etiqueta CAUSA RAÍZ, o ROOT CAUSE en inglés), naranja = degradado, verde = sano, azul = cambio, gris punteado = sin visibilidad.
+- Los textos de los diagramas van en el idioma del RCA.
 - Partir del kit `assets/drawio/rca-kit-dynatrace.drawio` (copiar celdas y estilos). Estilos exactos y reglas de D1/D2/D3 en `references/drawio-diagramas.md`.
 - Exportar PNG con XML embebido usando la ruta de draw.io que reporta `check_prereqs.py`, revisar cada imagen visualmente e **incrustarla dentro del notebook** como `data:image/png;base64`. Nunca URL externa ni ruta local.
 
@@ -167,11 +175,11 @@ El documento es técnico, pero **empieza por un resumen que entiende cualquiera*
 
 ```
 rca/                          (o rca-<Problem ID>/ si hay varios RCA en la misma carpeta)
-├── rca_spec.json             orden de secciones (partir de assets/rca_spec.example.json)
-├── sections/                 00-portada.md … 09-anexos.md
+├── rca_spec.json             idioma y orden de secciones (partir de assets/rca_spec.example.json)
+├── sections/                 00-portada.md … 09-anexos.md   (en inglés: 00-cover.md … 09-appendices.md)
 ├── queries/                  E<N.x>-<descripcion>.dql   (las mismas ejecutadas con dtctl)
 ├── evidence/                 E<N.x>.json + INDEX.md     (ventana, registros, advertencias, qué sustenta)
-├── diagrams/                 D1-propagacion · D2-linea-tiempo · D3-causa-raiz  (.drawio + .png)
+├── diagrams/                 D1-propagacion · D2-linea-tiempo · D3-causa-raiz  (.drawio + .png; en inglés: D1-propagation · D2-timeline · D3-root-cause)
 └── notebook.json             salida de build_notebook.py (regenerable; según la versión, dtctl apply lo borra al publicar)
 ```
 
@@ -183,6 +191,7 @@ rca/                          (o rca-<Problem ID>/ si hay varios RCA en la misma
 ### 5.5 Checklist de entrega
 - [ ] Gate R1–R7 cumplido (`check_prereqs.py` → LISTO) y contexto confirmado con el usuario.
 - [ ] Ancla, zona horaria y ventanas usadas registradas (ficha y 9.1).
+- [ ] Todo el notebook y los diagramas en el idioma del RCA, declarado en el spec (`"language"`).
 - [ ] Cada afirmación de las Secciones 1, 4 y 5 tiene Evidencia N.x y, si interpreta comportamiento, `[Rn]`.
 - [ ] Nivel de certeza de la causa raíz declarado.
 - [ ] Resumen ejecutivo entendible por cualquier persona (prueba de la regla de oro).
@@ -191,4 +200,4 @@ rca/                          (o rca-<Problem ID>/ si hay varios RCA en la misma
 - [ ] Sin secretos/PII; lenguaje blameless; horas UTC + hora local.
 - [ ] `build_notebook.py` sin errores y `dtctl apply --dry-run` sin errores.
 
-Respuesta final al usuario: nombre, ID y enlace del notebook (`/ui/apps/dynatrace.notebooks/notebook/<id>`), causa raíz en 3 líneas con nivel de certeza, y archivos `.drawio` fuente.
+Respuesta final al usuario, en el idioma del RCA: nombre, ID y enlace del notebook (`/ui/apps/dynatrace.notebooks/notebook/<id>`), causa raíz en 3 líneas con nivel de certeza, y archivos `.drawio` fuente.

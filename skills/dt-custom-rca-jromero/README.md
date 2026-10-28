@@ -8,7 +8,9 @@ Skill portable (estándar abierto [agentskills.io](https://agentskills.io)) para
 
 Funciona con cualquier agente compatible con skills (Claude Code, Codex, GitHub Copilot, Cursor, etc.).
 
-**Autor:** Edunzz (Jose Eduardo Romero Jimenez) · **Versión:** 2.1.0 · **Idioma:** español
+El notebook se entrega en **español o inglés**: por defecto, en el idioma en que se pide el RCA; también se puede indicar ("en inglés", "in English").
+
+**Autor:** Edunzz (Jose Eduardo Romero Jimenez) · **Versión:** 2.2.0 · **Idiomas del notebook:** español e inglés
 
 ## 1. Instalación
 
@@ -59,13 +61,15 @@ Pídeselo al agente en lenguaje natural:
 
 - "Haz el RCA del problema P-2609301"
 - "Investiga qué pasó con checkout-service ayer entre las 9:00 y las 10:00 y genera el notebook de RCA"
+- "Do the RCA for problem P-2609301" (el notebook sale en inglés)
+- "Haz el RCA del problema P-2609301 en inglés"
+- "Valida los prerrequisitos del RCA"
 
 Las horas se muestran en UTC y en la **hora local de tu máquina**, sea cual sea tu país. El horario de verano se aplica solo.
-- "Valida los prerrequisitos del RCA"
 
 El agente:
 1. Valida los prerrequisitos y te pide confirmar el tenant.
-2. Te pide el punto de partida y la zona horaria, si faltan.
+2. Te pide el punto de partida, si falta.
 3. Investiga con las skills de Dynatrace.
 4. Dibuja los diagramas.
 5. Ensambla y valida el notebook, y lo publica.
@@ -150,6 +154,11 @@ dt-custom-rca-jromero/
 
 ## 8. Cambios
 
+- **2.2.0**:
+  - Notebook en español o inglés. Por defecto, el idioma del pedido; el usuario puede indicar otro.
+  - Campo `"language"` en el spec. `build_notebook.py` valida los títulos del idioma declarado, responde en ese idioma y avisa si el spec y las secciones no coinciden.
+  - Equivalencias en inglés de títulos, etiquetas y columnas en `references/formato-notebook.md`, y de los textos de los diagramas en `references/drawio-diagramas.md`.
+  - Ejemplo completo en inglés en el repositorio (`examples/rca-example-memory-net`).
 - **2.1.0**:
   - Validador de prerrequisitos portable (`check_prereqs.py`).
   - Resumen ejecutivo para cualquier persona, validado automáticamente.

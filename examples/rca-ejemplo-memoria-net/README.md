@@ -2,6 +2,8 @@
 
 RCA **real** generado con la skill `dt-custom-rca-jromero` sobre un tenant Dynatrace SaaS y luego **anonimizado** para publicarlo. Muestra lo que produce la skill de principio a fin.
 
+El mismo caso en inglés está en [`rca-example-memory-net`](../rca-example-memory-net/).
+
 > **Datos anonimizados.** Se reemplazaron el cliente, el tenant, los nombres de servicios, pods y procesos, los IDs de entidades, eventos y problemas, y las fechas. Se conservaron las cifras operativas (solicitudes, porcentajes, memoria, tiempos), que no identifican a nadie. Las queries usan IDs ficticios: sirven como referencia, pero no devuelven datos en tu tenant.
 
 ## El caso en una frase

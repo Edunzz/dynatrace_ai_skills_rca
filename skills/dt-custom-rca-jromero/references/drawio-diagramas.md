@@ -20,6 +20,9 @@ Las figuras las mira **cualquier persona**, no solo el equipo técnico. Un diagr
 | Densidad | Máx. ~15 nodos. Si hay más, agrupar en una capa con contador ("Servicios backend (6)"). |
 | Horas | Hora local de la máquina (la misma de la ficha), calculada con `scripts/hora_local.py`. |
 | Leyenda | Obligatoria, esquina inferior derecha (copiarla del kit). |
+| Idioma | Todos los textos en el idioma del RCA. El kit está en español; en inglés se traducen sus textos (lista de abajo). |
+
+Textos fijos en inglés: "Cómo leer este diagrama:" → "How to read this diagram:" · CAUSA RAÍZ → ROOT CAUSE · Leyenda → Legend · Impacto en clientes → Customer impact · Propagación de la falla → Failure propagation · Con errores → With errors · Degradado → Degraded · Sano → Healthy · Cambio → Change · Sin visibilidad → No visibility · Hipótesis descartada → Ruled-out hypothesis · ¿Por qué? → Why? · Síntoma → Symptom · Factor contribuyente → Contributing factor · Factor mitigante → Mitigating factor. Los tipos de suceso de D2 y los nombres de archivo en inglés están en `references/formato-notebook.md`.
 
 ## 2. Estilo visual Dynatrace (tokens Strato, tema claro)
 
@@ -113,7 +116,8 @@ Origen de los colores: design tokens de Strato (https://developer.dynatrace.com/
 
 ## 7. Checklist visual (antes de incrustar)
 - [ ] Banda de marca arriba, título simple y línea "Cómo leer este diagrama".
-- [ ] Rojo solo en errores/fallas; causa raíz con borde grueso y etiqueta CAUSA RAÍZ.
+- [ ] Rojo solo en errores/fallas; causa raíz con borde grueso y etiqueta CAUSA RAÍZ (ROOT CAUSE en inglés).
+- [ ] Todos los textos en el idioma del RCA.
 - [ ] Nombres de negocio legibles; sin IDs; una métrica por nodo.
 - [ ] Flechas del origen al afectado, numeradas con hora local; etiquetas sin solaparse.
 - [ ] Leyenda abajo a la derecha; ≤ ~15 nodos; nada cortado en los bordes.

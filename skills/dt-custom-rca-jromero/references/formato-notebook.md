@@ -2,6 +2,13 @@
 
 Esta es la plantilla **mínima** obligatoria. Reemplaza `<...>` con datos reales. No cambies títulos, orden ni columnas de las tablas definidas. **Sí puedes agregar** subsecciones (`### N.x`), tablas, filas, evidencias DQL y diagramas draw.io adicionales en cualquier sección cuando aporten al análisis: la plantilla fija el piso, no el techo. Si un dato no existe, escribe `N/D` y explica en una línea por qué (y, si aplica, regístralo como brecha en la Sección 6).
 
+## Idioma
+
+El notebook se escribe en español (`es`) o en inglés (`en`), según la regla de `SKILL.md`: por defecto, el idioma del pedido. Esta plantilla está en español.
+- **Para inglés:** usar **exactamente** los títulos y etiquetas de la sección final [Equivalencias en inglés](#equivalencias-en-inglés-language-en) y declarar `"language": "en"` en el spec.
+- `build_notebook.py` valida los títulos obligatorios del idioma declarado. Si el spec y las secciones no coinciden, lo indica en el primer error.
+- Las reglas de esta plantilla (audiencias, formato, sustento, columnas) son las mismas en los dos idiomas.
+
 ## Audiencias del documento
 
 | Parte | Lector | Cómo se escribe |
@@ -258,10 +265,80 @@ Toda la evidencia se obtuvo con dtctl <versión> sobre el contexto <ctx>; las se
 
 ---
 
+## Equivalencias en inglés (language: en)
+
+Cuando el RCA va en inglés, se usa la misma plantilla con estos textos. Los nombres técnicos (servicios, métricas, campos, DQL) no se traducen. Ejemplo completo en inglés: `examples/rca-example-memory-net/` del repositorio.
+
+**Títulos obligatorios** (los valida `build_notebook.py`):
+
+| Español | English |
+|---|---|
+| `# RCA — <título corto>` | `# RCA — <short title>` |
+| `## 1. Resumen ejecutivo` | `## 1. Executive summary` |
+| `## 2. Alcance e impacto` | `## 2. Scope and impact` |
+| `### 2.1 Componentes afectados` | `### 2.1 Affected components` |
+| `### 2.2 Impacto en usuarios y negocio` | `### 2.2 Impact on users and business` |
+| `## 3. Línea de tiempo de los sucesos` | `## 3. Timeline of events` |
+| `## 4. Diagrama de propagación de la afectación` | `## 4. Failure propagation diagram` |
+| `## 5. Análisis de causa raíz` | `## 5. Root cause analysis` |
+| `### 5.1 Causa raíz` | `### 5.1 Root cause` |
+| `### 5.2 Análisis de los 5 porqués` | `### 5.2 5 whys analysis` |
+| `### 5.3 Hipótesis evaluadas` | `### 5.3 Hypotheses evaluated` |
+| `### 5.4 Validación de Davis` | `### 5.4 Davis validation` |
+| `## 6. Brechas de observabilidad detectadas` | `## 6. Observability gaps found` |
+| `## 7. Plan de acción` | `## 7. Action plan` |
+| `## 8. Lecciones aprendidas` | `## 8. Lessons learned` |
+| `## 9. Anexos` | `## 9. Appendices` |
+| `### 9.1 Anclaje, ventanas y evidencia` | `### 9.1 Anchor, time windows and evidence` |
+| `### 9.2 Glosario` | `### 9.2 Glossary` |
+| `### 9.3 Referencias oficiales` | `### 9.3 Official references` |
+| `### 9.4 Control de versiones` | `### 9.4 Version history` |
+
+**Etiquetas fijas:**
+
+| Elemento | Español | English |
+|---|---|---|
+| Portada | Cliente / Aplicación · Entorno · Versión del documento · Estado del RCA (Borrador / En revisión / Aprobado) | Customer / Application · Environment · Document version · RCA status (Draft / In review / Approved) |
+| Ficha | Campo · Valor · Ticket ITSM · Severidad · Categoría Davis · Inicio del impacto · Fin del impacto · Duración del impacto · Zona horaria local · Componente causa raíz · Certeza de la causa raíz · Anclaje de la investigación · Elaborado por · Revisado por · Fecha de elaboración | Field · Value · ITSM ticket · Severity · Davis category · Impact start · Impact end · Impact duration · Local time zone · Root cause component · Root cause certainty · Investigation anchor · Prepared by · Reviewed by · Date prepared |
+| Resumen ejecutivo | Por qué pasó (causa raíz, …) · Qué lo desencadenó · Qué hicimos para recuperarlo · Cómo nos enteramos · Cómo está hoy · Qué haremos para que no se repita | Why it happened (root cause, …) · What triggered it · How we recovered · How we found out · Where things stand · What we'll do so it doesn't happen again |
+| Certeza | Nivel de certeza: ✅ Confirmada · ⚠️ Probable · ❌ No determinada | Certainty level: ✅ Confirmed · ⚠️ Probable · ❌ Not determined |
+| Sin sustento completo | `⚠️ Hipótesis no confirmada:` | `⚠️ Unconfirmed hypothesis:` |
+| Evidencia | `[Evidencia N.x]` · "(Evidencia N.x)" · "Ev. N.x" · "Evidencia 2.1, 2.2 y 5.3" | `[Evidence N.x]` · "(Evidence N.x)" · "Ev. N.x" · "Evidence 2.1, 2.2 and 5.3" |
+| Figuras | `*Figura N. …*` | `*Figure N. …*` |
+| Horas | Hora UTC · Hora local (UTC±hh:mm) · "hora local" | UTC time · Local time (UTC±hh:mm) · "local time" |
+| Dato inexistente | N/D | N/A |
+| Indicadores | ✅ Confirmado/Completado · ❌ Descartado · ⚠️ Parcial/No concluyente | ✅ Confirmed/Done · ❌ Ruled out · ⚠️ Partial/Inconclusive |
+| Prioridad y severidad | 🔴 Crítica · 🟠 Alta · 🟡 Media · 🟢 Baja | 🔴 Critical · 🟠 High · 🟡 Medium · 🟢 Low |
+
+**Columnas y valores por sección:**
+
+| Sección | Español | English |
+|---|---|---|
+| 2.1 | Componente · Tipo · Rol en el incidente · Impacto observado · Evidencia | Component · Type · Role in the incident · Observed impact · Evidence |
+| 2.2 | Dimensión · Valor · Fuente. Filas: Requests fallidas · Usuarios / sesiones afectadas · Transacciones de negocio perdidas · SLO afectado | Dimension · Value · Source. Rows: Failed requests · Affected users / sessions · Lost business transactions · Affected SLO |
+| 3 | # · Hora UTC · Hora local (UTC±hh:mm) · Suceso · Tipo · Fuente. Indicador · Valor · Cálculo | # · UTC time · Local time (UTC±hh:mm) · Event · Type · Source. Indicator · Value · Calculation |
+| 3 (tipos) | Cambio · Impacto · Detección · Respuesta · Diagnóstico · Mitigación · Resolución · Comunicación | Change · Impact · Detection · Response · Diagnosis · Mitigation · Resolution · Communication |
+| 4 | Secuencia de propagación · Componentes no afectados relevantes · Puntos ciegos | Propagation sequence · Relevant unaffected components · Blind spots |
+| 5.1 | Clasificación · Descripción · Evidencia · Referencia oficial. Disparador · Causa raíz · Factor contribuyente · Factor mitigante | Classification · Description · Evidence · Official reference. Trigger · Root cause · Contributing factor · Mitigating factor |
+| 5.2 | # · Pregunta · Respuesta · Evidencia · Referencia oficial. "¿Por qué …?" | # · Question · Answer · Evidence · Official reference. "Why …?" |
+| 5.3 | # · Hipótesis · A favor (Evidencia) · En contra (Evidencia) · Referencia oficial · Estado | # · Hypothesis · For (Evidence) · Against (Evidence) · Official reference · Status |
+| 5.4 | Entidad raíz propuesta por Davis · Coincide con la causa raíz confirmada (Sí / Parcialmente / No) · Cómo determina Davis la causa raíz | Root cause entity proposed by Davis · Matches the confirmed root cause (Yes / Partially / No) · How Davis determines the root cause |
+| 6 | # (B1, B2…) · Categoría · Brecha · Efecto en el incidente · Recomendación · Prioridad. Cobertura · Telemetría · Alertamiento · Contexto · Proceso | # (G1, G2…) · Category · Gap · Effect on the incident · Recommendation · Priority. Coverage · Telemetry · Alerting · Context · Process |
+| 7 | ID · Acción · Tipo · Origen · Responsable · Fecha compromiso · Prioridad · Estado · Criterio de cierre. Contención · Correctiva · Preventiva · Detección. Origen: Causa raíz · Disparador · Factor contribuyente · B#. `@Por asignar`. Pendiente · ⚠️ En curso · ✅ Completado | ID · Action · Type · Origin · Owner · Due date · Priority · Status · Closing criteria. Containment · Corrective · Preventive · Detection. Origin: Root cause · Trigger · Contributing factor · G#. `@To be assigned`. Pending · ⚠️ In progress · ✅ Done |
+| 8 | Qué funcionó bien · Qué se puede mejorar · Dónde tuvimos suerte | What went well · What could be improved · Where we got lucky |
+| 9.1 | Anclaje. Ventana · Desde (UTC) · Hasta (UTC) · Motivo (Inicial · Ampliación N). Evidencia · Archivo .dql · Registros · Advertencias / límites ajustados · Sustenta | Anchor. Window · From (UTC) · To (UTC) · Reason (Initial · Extension N). Evidence · .dql file · Records · Warnings / adjusted limits · Supports |
+| 9.2 | Término · Definición | Term · Definition |
+| 9.3 | ID · Fuente oficial · URL · Consultada · Sustenta. "Otras referencias" | ID · Official source · URL · Accessed · Supports. "Other references" |
+| 9.4 | Versión · Fecha · Autor · Cambio | Version · Date · Author · Change |
+
+Nombres de archivo sugeridos en inglés: `sections/00-cover.md` … `09-appendices.md`; diagramas `D1-propagation`, `D2-timeline`, `D3-root-cause`.
+
+---
+
 ## Mapeo a JSON del notebook
 
 - Secciones markdown: `{ "id": "<n>", "type": "markdown", "markdown": "<texto>" }`
-- Secciones DQL: `{ "id": "<n>", "type": "dql", "title": "[Evidencia N.x] ...", "showTitle": true, "showInput": false, "state": { "input": { "value": "<query>" }, "visualizationSettings": { "autoSelectVisualization": true } } }`
+- Secciones DQL: `{ "id": "<n>", "type": "dql", "title": "[Evidencia N.x] ...", "showTitle": true, "showInput": false, "state": { "input": { "value": "<query>" }, "visualizationSettings": { "autoSelectVisualization": true } } }`. En inglés, el título empieza con `[Evidence N.x]`.
 - `showInput: false` en evidencias para lectura ejecutiva; el lector puede expandir la query.
 - IDs como enteros en string ("1", "2", …) en orden.
 - `content.defaultTimeframe` = ventana de análisis en ISO-8601 UTC fijo (el script rechaza `now()` para que el RCA sea reproducible).

@@ -38,6 +38,8 @@ El punto de partida es un Problem ID, un ID de evento, o un rango de tiempo más
 
 La **hora local** es la zona horaria de la máquina donde corre el agente. `scripts/hora_local.py` convierte cada hora UTC con el desfase vigente en esa fecha, horario de verano incluido.
 
+El **idioma** del notebook es español o inglés. Por defecto se usa el idioma en que se pide el RCA; el usuario también puede indicarlo ("en inglés", "in English"). Se declara en el spec con `"language"` y todo el notebook va en ese idioma, incluidos los diagramas.
+
 ### 3. Investigación libre
 La investigación es de solo lectura sobre el tenant. `references/senales-y-skills.md` relaciona cada pregunta del RCA con la skill que conviene cargar. `references/lineamientos-investigacion.md` resume:
 
@@ -62,7 +64,7 @@ La investigación es de solo lectura sobre el tenant. `references/senales-y-skil
 No se concluye sobre resultados truncados o muestreados.
 
 ### 5. Redacción
-La plantilla obligatoria está en `references/formato-notebook.md`: 10 secciones con títulos, tablas e indicadores fijos. Se puede agregar contenido, pero no quitar.
+La plantilla obligatoria está en `references/formato-notebook.md`: 10 secciones con títulos, tablas e indicadores fijos. Se puede agregar contenido, pero no quitar. La misma plantilla trae las equivalencias en inglés de cada título, etiqueta y columna.
 
 El **resumen ejecutivo** debe entenderlo cualquier persona:
 - Sin código, DQL, IDs ni siglas técnicas.
@@ -94,7 +96,7 @@ Los diagramas se hacen con draw.io a partir del kit `assets/drawio/rca-kit-dynat
 El color nunca es la única señal: también se usan el borde grueso, el punteado y el texto tachado. Cada diagrama lleva un título simple, una línea "cómo leer este diagrama" y una leyenda.
 
 ### 7. Ensamblado y validación
-`scripts/build_notebook.py` arma el JSON del notebook a partir de un spec: secciones markdown y queries `.dql`. También incrusta los PNG en base64 y repara los PNG truncados por versiones antiguas de draw.io.
+`scripts/build_notebook.py` arma el JSON del notebook a partir de un spec: secciones markdown y queries `.dql`. También incrusta los PNG en base64 y repara los PNG truncados por versiones antiguas de draw.io. Valida la plantilla del idioma declarado en el spec y muestra sus mensajes en ese idioma.
 
 **Errores (bloquean la publicación):**
 - Formato:
