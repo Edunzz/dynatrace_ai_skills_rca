@@ -1,0 +1,23 @@
+{
+  "name": "RCA | P-2609301 | checkout-service | 2026-09-30",
+  "defaultTimeframe": { "from": "2026-09-30T12:00:00Z", "to": "2026-09-30T16:00:00Z" },
+  "sections": [
+    { "type": "markdown", "file": "sections/00-portada.md" },
+    { "type": "markdown", "file": "sections/01-resumen-ejecutivo.md" },
+    { "type": "markdown", "file": "sections/02-alcance-impacto.md" },
+    { "type": "dql", "title": "[Evidencia 2.1] Errores y tiempo de respuesta del servicio raíz",
+      "query_file": "queries/E2.1-errores-servicio.dql", "visualization": "lineChart" },
+    { "type": "markdown", "file": "sections/03-linea-tiempo.md" },
+    { "type": "dql", "title": "[Evidencia 3.1] Despliegues y cambios en la ventana",
+      "query_file": "queries/E3.1-cambios.dql" },
+    { "type": "markdown", "file": "sections/04-propagacion.md" },
+    { "type": "markdown", "file": "sections/05-causa-raiz.md" },
+    { "type": "dql", "title": "[Evidencia 5.1] Errores por endpoint en el servicio raíz",
+      "query_file": "queries/E5.1-errores-endpoint.dql",
+      "querySettings": { "maxResultRecords": 100000, "defaultScanLimitGbytes": 2000 } },
+    { "type": "markdown", "file": "sections/06-brechas.md" },
+    { "type": "markdown", "file": "sections/07-plan-accion.md" },
+    { "type": "markdown", "file": "sections/08-lecciones.md" },
+    { "type": "markdown", "file": "sections/09-anexos.md" }
+  ]
+}

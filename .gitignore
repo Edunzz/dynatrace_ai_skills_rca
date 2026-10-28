@@ -1,0 +1,18 @@
+# Carpetas de trabajo de RCA reales: contienen datos del tenant. No subir.
+/rca/
+/rca-*/
+notebook.json
+evidence/*.json
+
+# Python
+__pycache__/
+*.pyc
+
+# draw.io: vistas previas temporales
+*.preview.png
+*.bkp
+.$*
+
+# Sistema
+.DS_Store
+Thumbs.db

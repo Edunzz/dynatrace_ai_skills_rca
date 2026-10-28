@@ -1,0 +1,4 @@
+fetch dt.davis.events, from: "2026-01-16T03:45:00Z", to: "2026-01-16T04:45:00Z"
+| filter in(event.id, {"1000000000000000001_1768536540000", "1000000000000000003_1768536540000", "1000000000000000004_1768536891970", "1000000000000000002_1768536720000"})
+| fields event.start, event.end, event.name, event.type, k8s.pod.name, host.name, event.description
+| sort event.start asc

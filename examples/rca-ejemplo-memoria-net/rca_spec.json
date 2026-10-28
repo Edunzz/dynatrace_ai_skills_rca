@@ -1,0 +1,109 @@
+{
+  "name": "RCA | P-2601001 | auth-api (ejemplo) | 2026-01-15",
+  "defaultTimeframe": {
+    "from": "2026-01-16T03:45:00Z",
+    "to": "2026-01-16T04:45:00Z"
+  },
+  "sections": [
+    {
+      "type": "markdown",
+      "file": "sections/00-portada.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/01-resumen.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/02-alcance.md"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 2.1] Solicitudes, fallas y tasa de fallas por minuto del servicio",
+      "query_file": "queries/E2.1-errores-servicio.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 2.2] Solicitudes y fallas por pod",
+      "query_file": "queries/E2.2-impacto-por-pod.dql"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/03-linea-tiempo.md"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 3.1] Eventos Davis de ambos problemas",
+      "query_file": "queries/E3.1-eventos-davis.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 3.2] Problemas Davis P-2601001 y P-2601002",
+      "query_file": "queries/E3.2-problemas-davis.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 3.3] Eventos registrados en el tenant por tipo (24 h)",
+      "query_file": "queries/E3.3-eventos-de-cambio-24h.dql"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/04-propagacion.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/05-causa-raiz.md"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 5.1] Solicitudes y fallas por pod y minuto",
+      "query_file": "queries/E5.1-fallas-por-pod-minuto.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 5.2] Detalle de las solicitudes fallidas",
+      "query_file": "queries/E5.2-detalle-fallas.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 5.3] Tiempo en recolección de basura (.NET) por proceso",
+      "query_file": "queries/E5.3-gc-proceso-net.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 5.4] Memoria del contenedor frente al límite por pod",
+      "query_file": "queries/E5.4-memoria-contenedor.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 5.5] Reinicios de contenedor por pod (48 h)",
+      "query_file": "queries/E5.5-reinicios-contenedor.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 5.6] Recurrencia de problemas del servicio (7 días)",
+      "query_file": "queries/E5.6-recurrencia-7d.dql"
+    },
+    {
+      "type": "dql",
+      "title": "[Evidencia 5.7] Tendencia de memoria del contenedor por pod (48 h)",
+      "query_file": "queries/E5.7-tendencia-memoria-48h.dql"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/06-brechas.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/07-plan.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/08-lecciones.md"
+    },
+    {
+      "type": "markdown",
+      "file": "sections/09-anexos.md"
+    }
+  ]
+}

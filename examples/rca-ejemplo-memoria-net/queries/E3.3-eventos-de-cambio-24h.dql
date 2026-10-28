@@ -1,0 +1,3 @@
+fetch events, from: "2026-01-15T04:45:00Z", to: "2026-01-16T04:45:00Z"
+| summarize {eventos = count(), eventos_de_cambio = countIf(contains(toString(event.type), "DEPLOY") or contains(toString(event.type), "CONFIG") or contains(toString(event.kind), "K8S"))}, by: {event.kind}
+| sort eventos desc
