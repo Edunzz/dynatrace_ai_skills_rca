@@ -190,7 +190,7 @@ El ejemplo debe ensamblarse sin errores ni advertencias, y cualquier dato nuevo 
 
 ## Licencia
 
-[MIT](LICENSE) © Jose Romero.
+[MIT](LICENSE) © Edunzz (Jose Eduardo Romero Jimenez).
 
 ## English summary
 

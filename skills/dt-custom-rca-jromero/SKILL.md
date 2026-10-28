@@ -4,7 +4,7 @@ description: Lineamientos y estándar de entrega para que un agente realice un R
 license: MIT
 compatibility: Cualquier agente compatible con agentskills.io que ejecute comandos de shell (Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Kiro, Junie, OpenCode, etc.). Requiere dtctl con contexto autenticado a Dynatrace SaaS, Python 3.9+, skills Dynatrace for AI, una skill de draw.io y draw.io Desktop.
 metadata:
-  author: Jose Romero (jromero)
+  author: Edunzz (Jose Eduardo Romero Jimenez)
   version: "2.1.0"
   language: es
   repository: https://github.com/Edunzz/dynatrace_ai_skills_rca

@@ -8,7 +8,7 @@ Skill portable (estándar abierto [agentskills.io](https://agentskills.io)) para
 
 Funciona con cualquier agente compatible con skills (Claude Code, Codex, GitHub Copilot, Cursor, etc.).
 
-**Autor:** Jose Romero · **Versión:** 2.1.0 · **Idioma:** español
+**Autor:** Edunzz (Jose Eduardo Romero Jimenez) · **Versión:** 2.1.0 · **Idioma:** español
 
 ## 1. Instalación
 
