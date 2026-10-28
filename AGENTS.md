@@ -15,7 +15,8 @@ Cuando el usuario pida un **RCA, análisis de causa raíz, post-mortem o informe
 
 ## Modificar este repositorio
 
-- Responde y documenta en español. El README tiene un resumen en inglés.
+- El `README.md` está en inglés. La skill, la carpeta `docs/` y los notebooks que se generan están en español.
+- Los diagramas del README se editan en `docs/images/*.drawio`. Exporta el PNG con el XML embebido: `drawio -x -f png -e -s 2 -b 10`.
 - **No subas datos de clientes.** Todo ejemplo debe estar anonimizado: nombres, tenant, IDs de entidad y de problema, hosts, pods y fechas. Las carpetas `rca/` y `rca-*/` de la raíz están en `.gitignore`.
 - Si cambias la skill o el ejemplo, verifica que el ejemplo se ensamble sin errores ni advertencias:
 
